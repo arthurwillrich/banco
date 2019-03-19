@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Banco {
 
 	public ArrayList<Conta> contas = new ArrayList<Conta>();
+	public ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 	public Banco() {
 
@@ -121,5 +122,21 @@ public class Banco {
 				System.out.println("Alguma(s) das contas não existe(m).");
 			}
 		}
+	}
+
+	public ArrayList<Conta> getContas() {
+		return contas;
+	}
+
+	public void setContas(ArrayList<Conta> contas) {
+		this.contas = contas;
+	}
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 }

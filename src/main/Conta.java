@@ -8,7 +8,7 @@ public class Conta {
 	public Double saldo = 0.0;
 	public Double limiteSaque;
 	public ArrayList<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
-	
+	public Cliente cliente;
 
 	public Conta(){
 		
@@ -61,5 +61,21 @@ public class Conta {
 
 	public void setLimiteSaque(Double limiteSaque) {
 		this.limiteSaque = limiteSaque;
+	}
+	
+	public ArrayList<Movimentacao> getMovimentacoes() {
+		return movimentacoes;
+	}
+
+	public void setMovimentacoes(ArrayList<Movimentacao> movimentacoes) {
+		this.movimentacoes = movimentacoes;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 }
