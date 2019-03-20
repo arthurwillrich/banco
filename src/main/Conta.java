@@ -10,7 +10,6 @@ public class Conta {
 	public ArrayList<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 	public Cliente cliente;
 	public Agencia agencia;
-	
 	public Conta(){
 		
 	}
