@@ -1,17 +1,23 @@
 package main;
 
-import java.util.ArrayList;
-
 public class Cliente {
 	
+	private Integer numero;
 	private String nome;
 	private String endereco;
 	private String telefone;
 	private String email;
-	private ArrayList<Conta> contas = new ArrayList<Conta>();
 	
 	public Cliente() {
 		
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
 	public String getNome() {
@@ -44,13 +50,5 @@ public class Cliente {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public ArrayList<Conta> getContas() {
-		return contas;
-	}
-
-	public void setContas(ArrayList<Conta> contas) {
-		this.contas = contas;
 	}
 }
