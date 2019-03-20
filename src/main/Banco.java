@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Banco {
 
-	public ArrayList<Conta> contas = new ArrayList<Conta>();
-	public ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-	public ArrayList<Agencia> agencias = new ArrayList<Agencia>();
+	private ArrayList<Conta> contas = new ArrayList<Conta>();
+	private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+	private ArrayList<Agencia> agencias = new ArrayList<Agencia>();
 
 	public Banco() {
 
@@ -18,6 +18,7 @@ public class Banco {
 		agencia.setNome(nome);
 		agencia.setEndereco(endereco);
 		this.agencias.add(agencia);
+		System.out.println("Agência '" + nome + "' (número " + (this.agencias.size() - 1) + ") criada com sucesso.");
 	}
 	
 	public void excluirAgencia(Integer numero) {
@@ -41,15 +42,31 @@ public class Banco {
 	}
 	
 	
-	public void criarCliente(String nome, String endereco, String telefone, String email) {
-		Cliente cliente = new Cliente();
-		cliente.setNumero(this.clientes.size());
-		cliente.setNome(nome);
-		cliente.setEndereco(endereco);
-		cliente.setTelefone(telefone);
-		cliente.setEmail(email);
-		this.clientes.add(cliente);
+	public void criarPessoaJuridica(String nome, String endereco, String telefone, String email, String cnpj) {
+		PessoaJuridica pessoa = new PessoaJuridica();
+		pessoa.setNumero(this.clientes.size());
+		pessoa.setNome(nome);
+		pessoa.setEndereco(endereco);
+		pessoa.setTelefone(telefone);
+		pessoa.setEmail(email);
+		pessoa.setCnpj(cnpj);
+		this.clientes.add(pessoa);
+		System.out.println("Pessoa jurídica '" + nome + "' (número " + (this.clientes.size() - 1) + ") criada com sucesso.");
 	}
+	
+	public void criarPessoaFisica(String nome,  String endereco, String telefone, String email, String cpf, String estadoCivil) {
+		PessoaFisica pessoa = new PessoaFisica();
+		pessoa.setNumero(this.clientes.size());
+		pessoa.setNome(nome);
+		pessoa.setEndereco(endereco);
+		pessoa.setTelefone(telefone);
+		pessoa.setEmail(email);
+		pessoa.setCpf(cpf);
+		pessoa.setEstadoCivil(estadoCivil);
+		this.clientes.add(pessoa);
+		System.out.println("Pessoa física '" + nome + "' (número " + (this.clientes.size() - 1) + ") criada com sucesso.");
+	}
+	
 	
 	public void excluirCliente(Integer numero) {
 		if (numero == null || numero < 0 || numero > this.clientes.size()) {
@@ -90,12 +107,13 @@ public class Banco {
 			conta.setLimiteCheque(limiteCheque);
 			conta.setAgencia(this.agencias.get(numeroAgencia));
 			conta.setCliente(this.clientes.get(numeroCliente));
-			System.out.println("Conta " + (this.contas.size() - 1) + " criada com sucesso.");
+			System.out.println("Conta corrente " + (this.contas.size() - 1) + " criada com sucesso.");
 		}
 		
 	}
 	
-	public void criarContaPoupanca(Integer numeroAgencia, Integer numeroCliente, Double limiteSaque, Integer variacao, Double rendimento) {
+	public void criarContaPoupanca(Integer numeroAgencia, Integer numeroCliente, Double limiteSaque,
+			Integer variacao, Double rendimento) {
 		if (numeroAgencia == null || numeroAgencia < 0 || numeroAgencia > this.agencias.size()) {
 			System.out.println("Número de agência inválido.");
 		} else if (this.clientes.get(numeroAgencia) == null) {
@@ -114,7 +132,7 @@ public class Banco {
 			conta.setRendimento(rendimento);
 			conta.setAgencia(this.agencias.get(numeroAgencia));
 			conta.setCliente(this.clientes.get(numeroCliente));
-			System.out.println("Conta " + (this.contas.size() - 1) + " criada com sucesso.");
+			System.out.println("Conta poupança " + (this.contas.size() - 1) + " criada com sucesso.");
 		}
 	}
 	
@@ -138,7 +156,7 @@ public class Banco {
 		} else {
 			if (this.contas.get(numero) != null){
 				if (this.contas.get(numero).sacar(valor)) {
-					System.out.println("Saque concluído com sucesso.");
+					System.out.println("Saque de " + valor + " reais da conta " + numero + " concluído com sucesso.");
 				} else {
 					System.out.println("Condições de saque não atendidas.");
 				}
@@ -154,7 +172,7 @@ public class Banco {
 		} else {
 			if (this.contas.get(numero) != null){
 				if (this.contas.get(numero).depositar(valor)) {
-					System.out.println("Depósito concluído com sucesso.");
+					System.out.println("Depósito de " + valor + " reais na conta " + numero + " concluído com sucesso.");
 				} else {
 					System.out.println("Condições de depósito não atendidas.");
 				}
@@ -180,12 +198,17 @@ public class Banco {
 		if (numero == null || numero < 0 || numero > this.contas.size()) {
 			System.out.println("Número inválido.");
 		} else {
-			if (this.contas.get(numero) != null){
+			Conta conta = this.contas.get(numero);
+			if (conta != null){
+				System.out.println("-------------------------------");
 				System.out.println("Extrato da conta " + numero + ":");
-				System.out.println("Saldo: " + this.contas.get(numero).getSaldo());
-				for (Movimentacao m : this.contas.get(numero).movimentacoes) {
-					System.out.println(m.descricao);
+				System.out.println("Titular: " + conta.getCliente().getNome());
+				System.out.println("Agência: " + conta.getAgencia().getNome());
+				System.out.println("Saldo: " + conta.getSaldo());
+				for (Movimentacao m : conta.getMovimentacoes()) {
+					System.out.println(m.getDescricao());
 				}
+				System.out.println("-------------------------------");
 			} else {
 				System.out.println("Conta não existe.");
 			}
@@ -193,15 +216,17 @@ public class Banco {
 	}
 	
 	public void transferir(Integer numero1, Integer numero2, Double valor) {
-		if (numero1 == null || numero1 < 0 || numero1 > this.contas.size() || numero2 == null || numero2 < 0 || numero2 > this.contas.size()) {
+		if (numero1 == null || numero1 < 0 || numero1 > this.contas.size() || numero2 == null ||
+				numero2 < 0 || numero2 > this.contas.size()) {
 			System.out.println("Números inválidos.");
 		} else {
 			if (this.contas.get(numero1) != null && this.contas.get(numero2) != null) {
 				if (this.contas.get(numero1).sacar(valor)) {
 					this.contas.get(numero2).depositar(valor);
-					System.out.println("Valor transferido com sucesso da conta " + numero1 + " para a conta " + numero2 + ".");
+					System.out.println("Valor de " + valor + " reais transferido com sucesso da conta "
+					+ numero1 + " para a conta " + numero2 + ".");
 				} else {
-					System.out.println("O limite de transferência (limite de saque) foi excedido."); 
+					System.out.println("O limite de transferência (limite de saque) foi excedido. Operação cancelada."); 
 				}
 			} else {
 				System.out.println("Alguma(s) das contas não existe(m).");

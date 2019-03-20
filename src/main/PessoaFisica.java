@@ -22,7 +22,4 @@ public class PessoaFisica extends Cliente {
 	public void setEstadoCivil(String estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
-	
-	
-
 }

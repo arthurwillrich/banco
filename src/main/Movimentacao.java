@@ -2,9 +2,9 @@ package main;
 
 public class Movimentacao {
 	
-	public String descricao;
-	public Double valor;
-	public String tipo;
+	private String descricao;
+	private Double valor;
+	private String tipo;
 	
 	public Movimentacao(String descricao, Double valor, String tipo) {
 		this.descricao = descricao;

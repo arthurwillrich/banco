@@ -5,10 +5,12 @@ public class Main {
 	public static void main(String[] args) {
 		Banco banco = new Banco();
 		
-		banco.criarAgencia("Agência de Florianópolis", "Avenida A"); // agência 0
+		banco.criarAgencia("Agência de Florianópolis", "Avenida A"); //agência 0
 		
-		banco.criarCliente("Ana", "Rua B", "49 88889991", "ana@ana.com.br"); //cliente 0
-		banco.criarCliente("João", "Rua C", "49 77779992", "joão@joão.com.br"); // cliente 1
+		banco.criarPessoaFisica("Ana", "Rua B", "49 88889991", "ana@ana.com.br", "123123123-45", "solteira"); //cliente 0
+		banco.criarPessoaFisica("João", "Rua C", "49 77779992", "joão@joão.com.br", "777777777-77", "casado"); //cliente 1
+		
+		System.out.println();
 		
 		banco.criarContaCorrente(0, 0, 500.0, false, 0.0); //agência 0, cliente 0 (ana)
 		banco.verSaldo(0);
@@ -20,7 +22,7 @@ public class Main {
 		
 		System.out.println();
 		
-		banco.criarContaPoupanca(0, 1, 500.0, 50, 0.7); // agência 0, cliente 1 (joão)
+		banco.criarContaPoupanca(0, 1, 500.0, 50, 0.7); //agência 0, cliente 1 (joão)
 		banco.sacar(1, 70.0); //sem saldo
 		banco.depositar(1, 1500.0);
 		banco.verSaldo(1);
@@ -28,7 +30,7 @@ public class Main {
 		System.out.println();
 		
 		banco.criarAgencia("Agência de São Paulo", "Avenida Y"); //agência 1
-		banco.criarCliente("Pedro", "Rua X", "49 11112222", "pedro@pedro.com.br"); //cliente 2
+		banco.criarPessoaJuridica("Empresa X", "Rua Z", "49 11112222", "pedro@pedro.com.br", "11111113333333"); //cliente 2
 		
 		System.out.println();
 		
