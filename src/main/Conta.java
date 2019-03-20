@@ -9,7 +9,7 @@ public class Conta {
 	public Double limiteSaque;
 	public ArrayList<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 	public Cliente cliente;
-
+	public Agencia agencia;
 	public Conta(){
 		
 	}
@@ -77,5 +77,13 @@ public class Conta {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Agencia getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(Agencia agencia) {
+		this.agencia = agencia;
 	}
 }
